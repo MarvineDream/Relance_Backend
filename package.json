@@ -7,7 +7,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server"
+    "start": "node server.js"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
