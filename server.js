@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import {connectToDatabase} from './config/db.js';
 import dotenv from 'dotenv';
-import { sendRenewalReminders, sendPaymentReminders } from '../Relance/controllers/relanceControllers.js';
+import { sendRenewalReminders, sendPaymentReminders } from './controllers/relanceControllers.js';
 import relanceRoute from './routes/relanceRoute.js';
 import clientRoute from './routes/clientRoute.js';
 import cron from 'node-cron';
@@ -49,12 +49,12 @@ app.use('/clients', clientRoute)
 
 
 
-cron.schedule('59 08 * * *', () => {
+cron.schedule('44 14 * * *', () => {
     console.log('Vérification des contrats proches de l\'expiration...');
     sendRenewalReminders();
 });
 
-cron.schedule('00 09 * * *', () => {
+cron.schedule('45 14 * * *', () => {
     console.log('Vérification des clients en situation d\'impayés ');
     sendPaymentReminders();
 });

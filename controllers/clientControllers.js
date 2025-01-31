@@ -13,7 +13,7 @@ export const registerClient = async (req, res) => {
             telephone,
             typeAssurance,
             dateExpiration,
-            impayé,
+            impayes,
         });
 
         // Sauvegarder le client dans la base de données
