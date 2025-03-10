@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import { sendRenewalReminders, sendPaymentReminders } from './controllers/relanceControllers.js';
 import relanceRoute from './routes/relanceRoute.js';
 import clientRoute from './routes/clientRoute.js';
+import AuthRoute from './routes/AuthRoute.js';
 import cron from 'node-cron';
 
 
@@ -41,20 +42,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
+app.use('/Authentification', AuthRoute);
 app.use('/Rouvellement', relanceRoute);
 app.use('/Impayé', relanceRoute);
-app.use('/clients', clientRoute)
+app.use('/clients', clientRoute);
 
 
 
 
-cron.schedule('44 14 * * *', () => {
+cron.schedule('23 14 * * *', () => {
     console.log('Vérification des contrats proches de l\'expiration...');
     sendRenewalReminders();
 });
 
-cron.schedule('45 14 * * *', () => {
+cron.schedule('22 14 * * *', () => {
     console.log('Vérification des clients en situation d\'impayés ');
     sendPaymentReminders();
 });

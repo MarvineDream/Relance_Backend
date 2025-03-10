@@ -1,10 +1,15 @@
 import express from 'express';
-import { registerClient } from '../controllers/clientControllers.js';
+import { addClient, deleteClient, getClient, getClientById, updateClient } from '../controllers/clientControllers.js';
 
 const router = express.Router();
 
 
-router.post('/', registerClient);
+
+router.post('/', addClient);
+router.get('/', getClient);
+router.get('/:id', getClientById);
+router.put('/:id', updateClient);
+router.delete('/:id', deleteClient);
 
 
 
