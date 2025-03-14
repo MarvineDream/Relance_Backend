@@ -20,7 +20,7 @@ const handleError = (res, error, message) => {
     res.status(500).json({ message, error: error.message });
 };
 
-// Enregistrement d'un Client
+// Enregistrement d'un admin
 export const Register = async (req, res) => {
     const { nom, email, password } = req.body;
 
@@ -41,7 +41,7 @@ export const Register = async (req, res) => {
 };
 
 
-// Connexion d'un Client
+// Connexion d'un admin
 export const login = async (req, res) => {
     const { email, password } = req.body;
 

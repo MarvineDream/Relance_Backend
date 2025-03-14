@@ -50,12 +50,12 @@ app.use('/clients', clientRoute);
 
 
 
-cron.schedule('23 14 * * *', () => {
+cron.schedule('50 14 * * *', () => {
     console.log('Vérification des contrats proches de l\'expiration...');
     sendRenewalReminders();
 });
 
-cron.schedule('22 14 * * *', () => {
+cron.schedule('03 10 * * *', () => {
     console.log('Vérification des clients en situation d\'impayés ');
     sendPaymentReminders();
 });

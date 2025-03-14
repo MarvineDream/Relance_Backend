@@ -34,7 +34,7 @@ export const sendRenewalReminders = async () => {
             if (!client.impayes) {
                 if (daysUntilExpiration === 30) { // 1 mois avant
                     await transporter.sendMail({
-                        from: '',
+                        from: 'leskalpel@gmail.com',
                         to: client.email,
                         subject: 'Rappel : Renouvellement de contrat dans 1 mois',
                         text: `Bonjour ${client.nom},\n\nVotre contrat d'assurance arrivera à expiration dans 1 mois. Pensez à le renouveler !\n\nCordialement,\nVotre agence d'assurance`,
@@ -44,7 +44,7 @@ export const sendRenewalReminders = async () => {
 
                 if (daysUntilExpiration === 14) { // 2 semaines avant
                     await transporter.sendMail({
-                        from: '',
+                        from: 'leskalpel@gmail.com',
                         to: client.email,
                         subject: 'Rappel : Renouvellement de contrat dans 2 semaines',
                         text: `Bonjour ${client.nom},\n\nVotre contrat d'assurance arrivera à expiration dans 2 semaines. Pensez à le renouveler !\n\nCordialement,\nVotre agence d'assurance`,
@@ -54,7 +54,7 @@ export const sendRenewalReminders = async () => {
 
                 if (daysUntilExpiration === 0) { //Jour J
                     await transporter.sendMail({
-                        from: '',
+                        from: 'leskalpel@gmail.com',
                         to: client.email,
                         subject: 'Urgent : Fin de votre contrat d\'assurance aujourd\'hui',
                         text: `Bonjour Mr/Mme ${client.nom},\n\nVotre contrat d'assurance est arrivé à expiration aujourd'hui. Veuillez le renouveler dès que possible.\n\nCordialement,\nVotre agence d'assurance Bamboo assur`,
@@ -76,7 +76,7 @@ export const sendPaymentReminders = async () => {
         for (const client of clients) {
             // Notification pour les impayés
             await transporter.sendMail({
-                from: '',
+                from: 'leskalpel@gmail.com',
                 to: client.email,
                 subject: 'Rappel : Assurance impayée',
                 text: `Bonjour ${client.nom},\n\nVous avez des impayés concernant votre assurance ${client.typeAssurance}. Merci de régulariser votre situation au plus vite.\n\nCordialement,\nVotre agence d'assurance`,

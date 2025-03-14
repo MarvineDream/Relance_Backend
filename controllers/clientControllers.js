@@ -15,6 +15,7 @@ export const addClient = async (req, res) => {
     await body('telephone').notEmpty().withMessage('Le téléphone est requis.').run(req);
     await body('typeAssurance').notEmpty().withMessage('Le type d\'assurance est requis.').run(req);
     await body('dateExpiration').notEmpty().withMessage('La date d\'expiration est requise.').run(req);
+    await body('impayes').isBoolean().withMessage('Le statut impayé est requis.').run(req);
     
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -22,6 +23,8 @@ export const addClient = async (req, res) => {
     }
 
     const { nom, email, telephone, typeAssurance, dateExpiration, impayes } = req.body;
+    console.log(req.body);
+    
 
     try {
         const newClient = new Client({
@@ -70,6 +73,8 @@ export const getClient = async (req, res) => {
 
 export const getClientById = async (req, res) => {
     const { id } = req.params;
+    console.log(req.params);
+    
 
     try {
         const client = await Client.findById(id); // Récupérer le client par ID
