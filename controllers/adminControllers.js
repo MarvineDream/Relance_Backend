@@ -2,11 +2,7 @@ import Admin from "../models/adminModel.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-
-
 const JWT_SECRET = process.env.JWT_SECRET;
-
-
 
 // Fonction pour générer un token
 const generateToken = (clientId) => {
@@ -25,7 +21,7 @@ export const Register = async (req, res) => {
     const { nom, email, password } = req.body;
 
     try {
-        const existingAdmin = await Admin.findOne({ $or: [{ nom }, { email }] });
+        const existingAdmin = await Admin.findOne({ $or: [{ nom }, { email: { $regex: new RegExp(`^${email}$`, 'i') } }] });
         if (existingAdmin) {
             return res.status(400).json({ message: "Nom de l'admin ou email déjà utilisé." });
         }
@@ -40,7 +36,6 @@ export const Register = async (req, res) => {
     }
 };
 
-
 // Connexion d'un admin
 export const login = async (req, res) => {
     const { email, password } = req.body;
@@ -50,7 +45,7 @@ export const login = async (req, res) => {
     }
 
     try {
-        const admin = await Admin.findOne({ email });
+        const admin = await Admin.findOne({ email: { $regex: new RegExp(`^${email}$`, 'i') } });
         if (!admin) {
             return res.status(401).json({ message: 'Identifiants invalides' });
         }

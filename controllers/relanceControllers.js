@@ -88,3 +88,22 @@ export const sendPaymentReminders = async () => {
     }
 };
 
+
+export const countClients = async () => {
+    try {
+        const totalClients = await Client.countDocuments();
+        const clientsWithImpayes = await Client.countDocuments({ impayes: true });
+        const clientsPaid = totalClients - clientsWithImpayes; // Clients ayant payé
+        const clientsRenewed = await Client.countDocuments({ renouvelle: true });
+        const clientsNotRenewed = totalClients - clientsRenewed; // Clients n'ayant pas renouvelé leur assurance
+
+        console.log(`Nombre total de clients : ${totalClients}`);
+        console.log(`Clients avec impayés : ${clientsWithImpayes}`);
+        console.log(`Clients ayant payé : ${clientsPaid}`);
+        console.log(`Clients ayant renouvelé leur assurance : ${clientsRenewed}`);
+        console.log(`Clients n'ayant pas renouvelé leur assurance : ${clientsNotRenewed}`);
+    } catch (error) {
+        console.error('Erreur lors du comptage des clients:', error);
+    }
+};
+
