@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/', authenticate, authorize, addClient);
 
 // Route pour recuperer les clients
-router.get('/', authenticate, authorize, getClient);
+router.get('/', getClient);
 
 // Route pour recuperer un client par son id
 router.get('/:id', authenticate, authorize, getClientById);
