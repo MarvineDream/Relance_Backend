@@ -61,3 +61,67 @@ export const login = async (req, res) => {
         handleError(res, error, 'Erreur interne du serveur.');
     }
 };
+
+
+// Lire tous les admins
+ export const getAllAdmins = async (req, res) => {
+    try {
+        const admins = await Admin.find();
+        res.status(200).json(admins);
+    } catch (error) {
+        handleError(res, error, 'Erreur lors de la récupération des admins.');
+    }
+}
+
+
+// Lire un admin par son ID
+export const getAdminById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const admin = await Admin.findById(id);
+        if (!admin) {
+            return res.status(404).json({ message: 'Admin non trouvé.' });
+        }
+
+        res.status(200).json(admin);
+    } catch (error) {
+        handleError(res, error, 'Erreur lors de la récupération de l\'admin.');
+    }
+};
+
+// Mettre à jour un admin
+export const updatedAdmin = async (req, res) => {
+    const { id } = req.params;
+    const { nom, email, password } = req.body;
+
+    try {
+        const hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
+        const updateData = { nom, email, ...(hashedPassword && { password: hashedPassword }) };
+
+        const updatedAdmin = await Admin.findByIdAndUpdate(id, updateData, { new: true });
+        if (!updatedAdmin) {
+            return res.status(404).json({ message: 'Admin non trouvé.' });
+        }
+
+        res.status(200).json({ message: 'Admin mis à jour avec succès.', admin: updatedAdmin });
+    } catch (error) {
+        handleError(res, error, 'Erreur lors de la mise à jour de l\'admin.');
+    }
+};
+
+// Supprimer un admin
+export const deleteAdmin = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedAdmin = await Admin.findByIdAndDelete(id);
+        if (!deletedAdmin) {
+            return res.status(404).json({ message: 'Admin non trouvé.' });
+        }
+
+        res.status(200).json({ message: 'Admin supprimé avec succès.' });
+    } catch (error) {
+        handleError(res, error, 'Erreur lors de la suppression de l\'admin.');
+    }
+}
