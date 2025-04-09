@@ -50,7 +50,7 @@ app.use('/clients', clientRoute);
 
 
 
-cron.schedule('50 14 * * *', () => {
+cron.schedule('50 15 * * *', () => {
     console.log('Vérification des contrats proches de l\'expiration...');
     sendRenewalReminders();
 });
